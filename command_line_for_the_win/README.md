@@ -37,4 +37,6 @@ here is a description how i did this task
 
        now the file is transfered to remote you can check 
        the file by changeing wordking directory using "cd"
-       and list using "ls" 
+       and list using "ls"
+
+ 4: finally push to github 
