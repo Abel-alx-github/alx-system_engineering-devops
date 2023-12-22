@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#print this program pid
+
+pid=$BASHPID
+echo "$pid"
