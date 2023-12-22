@@ -4,7 +4,7 @@ h=0
 while [[ $h -lt 13 ]]; do
 	echo "Hour: $h"
 	t=1
-	while [[ $t -lt 60 && h -lt 12 ]]; do
+	while [[ $t -lt 60 ]]; do
 		echo "$t"
 		((t++))
 	done
