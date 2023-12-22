@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 #displays the time for 12 hours and 59 minutes
-
 h=0
 while [[ $h -lt 13 ]]; do
 	echo "Hour: $h"
@@ -9,5 +8,5 @@ while [[ $h -lt 13 ]]; do
 		echo "$t"
 		((t++))
 	done
-((h++))
+	((h++))
 done
