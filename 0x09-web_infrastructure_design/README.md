@@ -5,11 +5,11 @@
 # **List of Tasks and Answers**
 
 - [Task 0 Simple web stack](#task-0-simple-web-stack)
-   - [Answer](#answer) 
+   - [Answer](#answer1) 
 - [Task 1 Distributed web infrastructure](#task-1-distributed-web-infrastructure)
-   - [Answer](#answer) 
+   - [Answer](#answer2) 
 - [Task 2 Secured and monitored web infrastructure](#task-2-secured-and-monitored-web-infrastructure)
-   - [Answer](#answer)
+   - [Answer](#answer3)
 
 
 
@@ -42,7 +42,7 @@ Downtime when maintenance needed (like deploying new code web server needs to be
 Cannot scale if too much incoming traffic
 Please, remember that everything must be written in English to further your technical ability in a variety of settings.
 ~~~
-## [Answer] <a name="answer"></a>
+## [Answer] <a name="answer1"></a>
 Explanation
 ~~~
 1. User Wants to Access Website:
@@ -132,7 +132,7 @@ No monitoring
 Please, remember that everything must be written in English to further your technical ability in a variety of settings.
 ~~~
 
-## [Answer] <a name="answer"></a>
+## [Answer] <a name="answer2"></a>
 
 **Explanation of Additional Elements:**
 ~~~
@@ -214,7 +214,7 @@ Why having servers with all the same components (database, web server and applic
 Please, remember that everything must be written in English to further your technical ability in a variety of settings.
 ~~~
 
-## [Answer] <a name="#answer"></a>
+## [Answer] <a name="#answer2"></a>
 **Explanation of Additional Elements:**
 ~~~
 Firewalls:
