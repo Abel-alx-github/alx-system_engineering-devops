@@ -1,6 +1,6 @@
 <h1 align="center">Web infrastructure design</h1>
 
-**Ahtour by ABEL TIBESO**
+**Author by ABEL TIBESO**
 
 # **List of Tasks and Answers**
 
