@@ -5,7 +5,11 @@ sudo apt install -y nginx
 
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
-config_dirct_me="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4 permanent;"
+config_dirct_me="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/Abel-alx-github permanent;"
+sudo chmod +w /etc/nginx/sites-enabled/default
 sudo -i "s/server_name _;/$config_dirct_me/" /etc/nginx/sites-enabled/default
+
+echo "https://github.com/Abel-alx-github" | sudo tee /var/www/html/redirect_me
+
 
 sudo service nginx restart
