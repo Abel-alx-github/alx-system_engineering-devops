@@ -1,55 +1,48 @@
 #install nginx and config 
-exec { 'sudo apt update':
-  provider => shell,
-}
-
-exec { 'sudo apt install -y nginx':
-  provider => shell,
-  }
-
+# Install Nginx
 package { 'nginx':
-  ensure  => installed,
+  ensure => installed,
 }
 
+# Configure Nginx
+file { '/etc/nginx/sites-available/default':
+  ensure  => present,
+  content => "
+    server {
+      listen 80;
+      server_name _;
 
+      location = / {
+        return 200 'Hello World!';
+      }
+
+      location = /redirect_me {
+        return 301 https://github.com/Abel-alx-github;
+      }
+
+      error_page 404 /my_error404.html;
+
+      location = /my_error404.html {
+        return 200 'Ceci n\'est pas une page';
+      }
+    }
+  ",
+  require => Package['nginx'],
+}
+
+# Enable Nginx default site
+file { '/etc/nginx/sites-enabled/default':
+  ensure  => 'link',
+  target  => '/etc/nginx/sites-available/default',
+  require => File['/etc/nginx/sites-available/default'],
+}
+
+# Restart Nginx
 service { 'nginx':
   ensure  => running,
   enable  => true,
-  require => Package['nginx'],
-}
-
-exec { "sudo ufw allow 'Nginx HTTP'":
-  provider => shell,
-  require  => Service['nginx'],
-}
-
-file { '/var/www/html/index.html':
-  content => 'Hello World!',
-  require => Package['nginx'],
-}
-
-$config_direct = "server_name _;\n\trewrite ^/redirect_me https://github.com/Abel-alx-github permanent;"
-
-exec { 'sudo sed -i "s/server_name _;/$config_direct/" /etc/nginx/sites-enabled/default':
-  provider => shell,
-}
-
-$config_error = "listen 80 default_server;\nerror_page 404 /my_error404.html;"
-
-exec { 'sudo sed -i "s/listen 80 default_server;/$config_error/" /etc/nginx/sites-enabled/default':
-  provider  => shell,
-}
-
-file { '/var/www/html/my_error404.html':
-  content => "Ceci n'est pas une page",
-  require => Package['nginx'],
-}
-
-file { '/var/www/html/redirect_me':
-  content => 'https://github.com/Abel-alx-github',
-  require => Package['nginx'],
-}
-
-exec { 'sudo service nginx restart':
-  provider => shell,
+  require => [
+    Package['nginx'],
+    File['/etc/nginx/sites-enabled/default'],
+  ],
 }
