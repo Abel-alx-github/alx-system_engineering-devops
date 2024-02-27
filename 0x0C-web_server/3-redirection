@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+sduo apt update
+sudo apt install -y nginx
+sudo ufw allow 'Nginx HTTP'
+
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+config_dirct_me="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4 permanent;"
+
+sudo -i "s/server_name _/$config_dirct_me/" /etc/nginx
+sudo ufw allow 'Nginx HTTP'/sites-enabled/default
+
+sudo service nginx restart
