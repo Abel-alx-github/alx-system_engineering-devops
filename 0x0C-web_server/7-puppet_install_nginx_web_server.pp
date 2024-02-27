@@ -1,5 +1,8 @@
 #install nginx and config 
 
+exec { 'update system':
+        command => '/usr/bin/apt-get update',
+}
 package { 'nginx':
   ensure => installed,
 }
@@ -11,19 +14,19 @@ service { 'nginx':
 }
 
 file { '/var/www/html/index.html':
-  ensure  => present,
+  ensure  => file,
   content => 'Hello World!',
   require => Package['nginx'],
 }
 
 file { '/var/www/html/my_error404.html':
-  ensure  => present,
+  ensure  => file,
   content => "Ceci n'est pas une page",
   require => Package['nginx'],
 }
 
 file { '/var/www/html/redirect_me':
-  ensure  => present,
+  ensure  => file,
   content => 'https://github.com/Abel-alx-github',
   require => Package['nginx'],
 }
