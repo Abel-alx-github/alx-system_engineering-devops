@@ -1,11 +1,16 @@
 #install nginx and config 
+exec { 'sudo apt update':
+  provider => shell,
+}
 
-exec { 'update system':
-        command => '/usr/bin/apt-get update',
-}
+exec { 'sudo apt install -y nginx':
+  provider => shell,
+  }
+
 package { 'nginx':
-  ensure => installed,
+  ensure  => installed,
 }
+
 
 service { 'nginx':
   ensure  => running,
@@ -13,40 +18,38 @@ service { 'nginx':
   require => Package['nginx'],
 }
 
+exec { "sudo ufw allow 'Nginx HTTP'":
+  provider => shell,
+  require  => Service['nginx'],
+}
+
 file { '/var/www/html/index.html':
-  ensure  => file,
   content => 'Hello World!',
   require => Package['nginx'],
 }
 
+$config_direct = "server_name _;\n\trewrite ^/redirect_me https://github.com/Abel-alx-github permanent;"
+
+exec { 'sudo sed -i "s/server_name _;/$config_direct/" /etc/nginx/sites-enabled/default':
+  provider => shell,
+}
+
+$config_error = "listen 80 default_server;\nerror_page 404 /my_error404.html;"
+
+exec { 'sudo sed -i "s/listen 80 default_server;/$config_error/" /etc/nginx/sites-enabled/default':
+  provider  => shell,
+}
+
 file { '/var/www/html/my_error404.html':
-  ensure  => file,
   content => "Ceci n'est pas une page",
   require => Package['nginx'],
 }
 
 file { '/var/www/html/redirect_me':
-  ensure  => file,
   content => 'https://github.com/Abel-alx-github',
   require => Package['nginx'],
 }
 
-file { '/etc/nginx/sites-available/default':
-  ensure  => file,
-  content => "
-    server {
-      server_name _;
-      rewrite ^/redirect_me https://github.com/Abel-alx-github permanent;
-      listen 80 default_server;
-      error_page 404 /my_error404.html;
-    }
-  ",
-  require => Package['nginx'],
-}
-
-file { '/etc/nginx/sites-enabled/default':
-  ensure  => link,
-  target  => '/etc/nginx/sites-available/default',
-  require => File['/etc/nginx/sites-available/default'],
-  notify  => Service['nginx'],
+exec { 'sudo service nginx restart':
+  provider => shell,
 }
