@@ -3,9 +3,10 @@
 sudo apt update
 sudo apt install -y nginx
 sudo service nginx start
+sudo ufw allow 'Nginx HTTP'
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
-config_dirct_me="server_name _;\n\trewrite ^/redirect_me https://github.com/Abel-alx-github permanent;"
+config_dirct_me="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/Abel-alx-github permanent;"
 
 sudo sed -i "s/server_name _;/$config_dirct_me/" /etc/nginx/sites-enabled/default
 
