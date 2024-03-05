@@ -1,8 +1,20 @@
 #!/usr/bin/env bash
 #install nginx and config to redirct_me
-sudo apt update
-sudo apt install -y nginx
+sudo apt-get -y update
+sudo apt-get install -y nginx
 sudo ufw allow 'Nginx HTTP'
+echo "Hello World!" | sudo tee /var/www/html/index.html
 
-sudo sed -i '/server_name _;/a \       \t add_headers X-Served-By: $hostname\n;' /etc/nginx/sites-enabled/default
+config_dirct_me="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/Abel-alx-github permanent;"
+
+sudo sed -i "s/server_name _;/$config_dirct_me/" /etc/nginx/sites-enabled/default
+
+replace="listen 80 default_server;\nerror_page 404 \/my_error404.html;"
+
+sudo sed -i "s/listen 80 default_server;/$replace/" /etc/nginx/sites-enabled/default
+
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/my_error404.html
+
+echo "https://github.com/Abel-alx-github" | sudo tee /var/www/html/redirect_me
+sudo sed -i '/server_name _;/a \        add_header X-Served-By $hostname;' /etc/nginx/sites-enabled/default
 sudo service nginx restart
