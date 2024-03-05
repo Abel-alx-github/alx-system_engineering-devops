@@ -1,24 +1,10 @@
 #install nginx and config 
 
-package {
-    'nginx':
-    ensure => installed,
-}
 
-file {'/var/www/html/index.html':
-    content => 'Hello World!',
-}
-
-file_line {'configure redirection':
-    path  =>  '/etc/nginx/sites-available/default',
-    after =>  'server_name _;',
-    line  =>  "\n\tlocation /redirect_me {\n\t\treturn 301 https://github.com/Abel-alx-github;\n\t}\n",}
-
-file_line {"add_header X-Served-By ${hostname}":
-    path  => '/etc/nginx/sites-available/default',
-    after => 'server_name _;',
-    line  => "    add_header X-Served-By ${hostname};",}
-
-service {'nginx':
-    ensure => running,
+exec{'http header':
+    command  => 'sudo apt-get -y update &&
+               sudo apt-get install -y nginx && 
+               sudo sed -i "/server_name _/a add_header X-Served-By $hostname;" '/etc/sites-enabled/default' &&
+               sudo service nginx restart',
+    provider => shell,
 }
