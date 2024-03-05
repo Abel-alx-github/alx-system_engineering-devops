@@ -14,7 +14,7 @@ file_line {'configure redirection':
     after =>  'server_name _;',
     line  =>  "\n\tlocation /redirect_me {\n\t\treturn 301 https://github.com/Abel-alx-github;\n\t}\n",}
 
-file {'/etc/nginx/sites-available/default':
+file_line {"add_header X-Served-By ${hostname}":
     path  => '/etc/nginx/sites-available/default',
     after => 'server_name _;',
     line  => "    add_header X-Served-By ${hostname};",}
