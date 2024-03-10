@@ -2,10 +2,5 @@
 #In this first debugging project, you will need to get Apache to run on the container and
 #to return a page containing Hello Holberton when querying the root of it.
 
-sudo apt update
-
-sudo apt install apache2
-
-sudo sed -i "s#<Directory /var/www/>#ServerName localhost\n<Directory /var/www/>#" /etc/apache2/apache2.conf
-
-sudo service apache2 restart
+echo "ServerName localhost" >> /etc/apache2.conf
+service apache2 start
