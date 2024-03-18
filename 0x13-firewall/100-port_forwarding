@@ -1,0 +1,2 @@
+net/ipv4/ip_forward=1
+-A PREROUTING -p tcp --dport 8080 -j DNAT --to-destination 18.233.67.128:80
