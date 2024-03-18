@@ -1,4 +1,4 @@
-net/ipv4/ip_forward=1
+#net/ipv4/ip_forward=1
 
 #
 # rules.before
@@ -17,9 +17,10 @@ net/ipv4/ip_forward=1
 :ufw-before-forward - [0:0]
 :ufw-not-local - [0:0]
 # End required lines
-
--A PREROUTING -p tcp --dport 8080 -j DNAT --to-destination 18.233.67.128:80
-
+*nat
+:PREROUTING ACCEPT[0:0]
+-A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+COMMIT
 
 # allow all on loopback
 -A ufw-before-input -i lo -j ACCEPT
