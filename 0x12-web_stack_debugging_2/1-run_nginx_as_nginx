@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 #change owner for nginx
 
-sudo adduser --disabled-password -gecos "" "nginx"
+sed -i 's/80 default_server/8080 default_server/' /etc/nginx/sites-available/default
 
-echo "nginx:nginx1234" | sudo chpasswd
+chown -R nginx:nginx /etc/nginx
 
-sudo chown -R nginx:nginx /etc/nginx
