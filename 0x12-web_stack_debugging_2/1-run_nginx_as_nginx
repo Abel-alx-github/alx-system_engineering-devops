@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#change owner for nginx
+
+sudo adduser --disabled-password -gecos "" "nginx"
+
+echo "nginx:nginx1234" | sudo chpasswd
+
+sudo chown -R nginx:nginx /etc/nginx
