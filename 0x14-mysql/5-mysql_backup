@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#lets backup the databases from mysql
+
+if [ $# == 0 ]; then
+echo "provide the passowrd"
+exit 1
+fi
+
+sudo mysqldump -u root -p "$1" --all-databases  > backup.sql
+tar -czf "$(date +'%d-%m-%Y').tar.gz" backup.sql
