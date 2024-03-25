@@ -17,7 +17,10 @@ def get_todo():
         writer = csv.writer(f, delimiter=',', quoting=csv.QUOTE_ALL)
         for item in respond:
             writer.writerow(
-                [item["userId"], name, item["completed"], item["title"]])
+                [
+                    item.get("userId"), name,
+                    item.get("completed"), item.get("title")
+                ])
 
 
 if __name__ == '__main__':
