@@ -12,15 +12,12 @@ def get_todo():
     respond = requests.get(url).json()
     name = requests.get(user_url).json().get('username')
 
-    data = "" 
-    for item in respond:
-        data += "{},{},{},{}\n".format(str(item['userId']) , str(name) , str(item['completed']) , str(item['title']))
     save_to = f'{id}.csv'
     with open(save_to, 'w') as f:
-        f.write(data)
-	#writer = csv.writer(f)
-        # writer.writerows(data)
-
+        writer = csv.writer(f, delimiter=',', quoting=csv.QUOTE_ALL)
+        for item in respond:
+            writer.writerow(
+                [item["userId"], name, item["completed"], item["title"]])
 
 
 if __name__ == '__main__':
