@@ -9,7 +9,7 @@ def get_todo():
     url_all_users = f"https://jsonplaceholder.typicode.com/users"
     users = requests.get(url_all_users).json()
     json_data_dic = {}
-    with open(f'todo_all_emploees.json', 'w') as jf:
+    with open(f'todo_all_employees.json', 'w') as jf:
         for user in users:
             url = "https://jsonplaceholder.typicode.com/users/{}/todos".format(
                 user['id'])
