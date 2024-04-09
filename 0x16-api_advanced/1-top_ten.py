@@ -12,11 +12,16 @@ def top_ten(subreddit):
                    'User-Agent': 'pKL2PTBBkJt0gXrFASOUYw',
                   }
         url = f'https://www.reddit.com/r/{subreddit}/hot.json'
-        respond = requests.get(url, headers=headers, allow_redirects=False,
-                               params={"limit": 10},)
-
-        if respond.status_code == 200:
-            for post in respond.json().get('data').get('children'):
-                print(post.get('data').get('title'))
-            return
-        print(None)
+        response = requests.get(url, headers=headers, allow_redirects=False,
+                                params={"limit": 10},)
+        if response.status_code == 200:
+            try:
+                data = response.json()
+                posts = data['data']['children']
+                for post in posts:
+                    title = post['data']['title']
+                    print(title)
+            except (KeyError, TypeError):
+                pass
+        else:
+            print(None)
