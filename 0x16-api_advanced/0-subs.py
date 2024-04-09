@@ -7,8 +7,9 @@ import requests
 def number_of_subscribers(subreddit):
     """ return no of subscribe if it is valid subreddit"""
     if subreddit:
+        headers = {'User-Agent': "pKL2PTBBkJt0gXrFASOUYw"}
         url = f'https://www.reddit.com/r/{subreddit}/about.json'
-        respond = requests.get(url, allow_redirects=False)
+        respond = requests.get(url, headers=headers, allow_redirects=False)
         sub = None
         if (respond.status_code == 200):
 
