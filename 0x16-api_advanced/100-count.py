@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+""" prints the count of a given words"""
 from requests import get
 
 
